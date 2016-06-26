@@ -1,6 +1,6 @@
 {
   "name": "derive-pkg",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A helper utility for publishing transpiled code to npm",
   "author": "Ryan Tsao <ryan.j.tsao@gmail.com>",
   "main": "index.js",
@@ -8,7 +8,6 @@
   "repository": "git@github.com:rtsao/derive-pkg.git",
   "bugs": "https://github.com/rtsao/derive-pkg/issues",
   "bin": "bin/cli.js",
-  "main": "index.js",
   "scripts": {
     "test": "node test/index.js"
   },
