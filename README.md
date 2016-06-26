@@ -8,16 +8,31 @@ When building libraries with Babel and publishing transpiled code, the standard 
 
 This utlity derives a `package.json` from your root and places it into your build directory so you can publish it.
 
-# Install
+## Install
 
 ```
 npm install derive-pkg --save-dev
 ```
 
-# Quick Example
+## Quick Example
 
 ```
 babel-cli src -o lib
 derive-pkg -o lib
 npm publish lib
+```
+
+## Usage
+
+```
+Usage: derive-pkg [directory] [options]
+
+Options:
+      directory   The base directory containing the package.json (defualt: ".")
+
+  --out-dir, -d   The output directory for the derived package.json
+
+     --name, -n   Override the name field of the derived package.json
+
+  --version, -v   Override the version field of the derived package.json
 ```
