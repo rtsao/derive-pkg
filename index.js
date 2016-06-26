@@ -33,10 +33,7 @@ function derivePkg(baseDir, opts) {
   var destPkgPath = path.resolve(opts.outDir, 'package.json');
   writePkg(pkg, destPkgPath);
 
-  var readmePath = path.resolve(baseDir, 'README.md');
-  var destReadmePath = path.resolve(opts.outDir, 'README.md');
-
-  fs.createReadStream(readmePath).pipe(fs.createWriteStream(destReadmePath));
+  copyPackageMeta(baseDir, opts.outDir);
 }
 
 function writePkg(pkg, dest) {
@@ -52,5 +49,39 @@ function rebasePaths(entry, outDir) {
       acc[key] = path.relative(outDir, val);
       return acc;
     }, {});
+  }
+}
+
+function copyPackageMeta(baseDir, destDir) {
+  fs.readdir(baseDir, function(err, files) {
+    files.forEach(function(file) {
+      var absPath = path.join(baseDir, file);
+      fs.stat(absPath, function(err, stats) {
+        if (stats.isFile() && isPackageMeta(file)) {
+          fs.createReadStream(absPath)
+            .pipe(fs.createWriteStream(path.join(destDir, file)));
+        }
+      });
+    });
+  });
+}
+
+/*
+ * Returns whether file cannot be ignored by npm, and hence
+ * should be published to npm. Adapted from:
+ * https://github.com/npm/npm/blob/master/lib/utils/tar.js
+ */
+function isPackageMeta(file) {
+  if (file.match(/^readme(\.[^\.]*)$/i)) {
+    return true;
+  }
+  if (file.match(/^(license|licence)(\.[^\.]*)?$/i)) {
+    return true;
+  }
+  if (file.match(/^(notice)(\.[^\.]*)?$/i)) {
+    return true;
+  }
+  if (file.match(/^(changes|changelog|history)(\.[^\.]*)?$/i)) {
+    return true;
   }
 }
