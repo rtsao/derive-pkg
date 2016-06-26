@@ -17,8 +17,8 @@ npm install derive-pkg --save-dev
 ## Quick Example
 
 ```
-babel-cli src -o lib
-derive-pkg -o lib
+babel-cli src -d lib
+derive-pkg -d lib
 npm publish lib
 ```
 
