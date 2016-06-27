@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var parallel = require('run-parallel');
+var series = require('run-series');
 
 module.exports = derivePkg;
 
@@ -77,22 +78,26 @@ function rebasePaths(entry, outDir) {
 }
 
 function copyPackageMeta(baseDir, destDir, callback) {
-  var files = [];
+  var callbacks = [];
   fs.readdir(baseDir, function(err, files) {
     files.forEach(function(file) {
       var absPath = path.join(baseDir, file);
+      var done;
+      callbacks.push(function(cb) {
+        done = cb;
+      });
       fs.stat(absPath, function(err, stats) {
         if (stats.isFile() && isPackageMeta(file)) {
           var out = fs.createWriteStream(path.join(destDir, file));
-          files.push(function(cb) {
-            out.on('finish', cb);
-          });
+            out.on('finish', done);
           fs.createReadStream(absPath).pipe(out);
+        } else {
+          done();
         }
       });
     });
+    parallel(callbacks, callback);
   });
-  parallel(files, callback);
 }
 
 /*
