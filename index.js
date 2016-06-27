@@ -1,20 +1,32 @@
 var fs = require('fs');
 var path = require('path');
+var parallel = require('run-parallel');
 
 module.exports = derivePkg;
 
-function derivePkg(baseDir, opts) {
+function derivePkg(baseDir, opts, callback) {
+  if (typeof baseDir === 'object') {
+    callback = opts;
+    opts = baseDir;
+    baseDir = '.';
+  }
   if (!opts.outDir) {
     throw Error('Error: No output directory specified.');
   }
-  var baseDir = opts.baseDir || '.';
-  copyPackageJson(baseDir, opts.outDir, opts.name, opts.version);
-  copyPackageMeta(baseDir, opts.outDir);
+
+  parallel([
+    function (cb) {
+      copyPackageJson(baseDir, opts.outDir, opts.name, opts.version, cb);
+    },
+    function (cb) {
+      copyPackageMeta(baseDir, opts.outDir, cb);
+    }
+  ], callback);
 }
 
-function copyPackageJson(baseDir, destDir, name, version) {
+function copyPackageJson(baseDir, destDir, name, version, callback) {
   var srcPath = path.resolve(baseDir, 'package.json');
-  var destPath = path.resolve(opts.outDir, 'package.json');
+  var destPath = path.resolve(destDir, 'package.json');
   fs.readFile(srcPath, function(err, data) {
     if (err) {
       throw Error('Could not read package.json');
@@ -22,9 +34,9 @@ function copyPackageJson(baseDir, destDir, name, version) {
     try {
       var pkg = JSON.parse(data);
     } catch (e) {
-      throw Error('Error parsing package.json', e.message);
+      return callback('Error parsing package.json');
     }
-    writePkg(transformPackageJson(pkg, name, version), destPath);
+    writePkg(transformPackageJson(pkg, name, version), destPath, callback);
   });
 }
 
@@ -48,8 +60,8 @@ function transformPackageJson(pkg, name, version) {
   return pkg;
 }
 
-function writePkg(pkg, dest) {
-  fs.writeFileSync(dest, JSON.stringify(pkg, null, 2));
+function writePkg(pkg, dest, callback) {
+  fs.writeFile(dest, JSON.stringify(pkg, null, 2), 'utf8', callback);
 }
 
 function rebasePaths(entry, outDir) {
@@ -64,18 +76,23 @@ function rebasePaths(entry, outDir) {
   }
 }
 
-function copyPackageMeta(baseDir, destDir) {
+function copyPackageMeta(baseDir, destDir, callback) {
+  var files = [];
   fs.readdir(baseDir, function(err, files) {
     files.forEach(function(file) {
       var absPath = path.join(baseDir, file);
       fs.stat(absPath, function(err, stats) {
         if (stats.isFile() && isPackageMeta(file)) {
-          fs.createReadStream(absPath)
-            .pipe(fs.createWriteStream(path.join(destDir, file)));
+          var out = fs.createWriteStream(path.join(destDir, file));
+          files.push(function(cb) {
+            out.on('finish', cb);
+          });
+          fs.createReadStream(absPath).pipe(out);
         }
       });
     });
   });
+  parallel(files, callback);
 }
 
 /*
