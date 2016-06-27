@@ -7,18 +7,34 @@ function derivePkg(baseDir, opts) {
   if (!opts.outDir) {
     throw Error('Error: No output directory specified.');
   }
-
   var baseDir = opts.baseDir || '.';
+  copyPackageJson(baseDir, opts.outDir, opts.name, opts.version);
+  copyPackageMeta(baseDir, opts.outDir);
+}
 
-  var pkgPath = path.resolve(baseDir, 'package.json');
-  var pkg = require(pkgPath);
+function copyPackageJson(baseDir, destDir, name, version) {
+  var srcPath = path.resolve(baseDir, 'package.json');
+  var destPath = path.resolve(opts.outDir, 'package.json');
+  fs.readFile(srcPath, function(err, data) {
+    if (err) {
+      throw Error('Could not read package.json');
+    }
+    try {
+      var pkg = JSON.parse(data);
+    } catch (e) {
+      throw Error('Error parsing package.json', e.message);
+    }
+    writePkg(transformPackageJson(pkg, name, version), destPath);
+  });
+}
 
+function transformPackageJson(pkg, name, version) {
   delete pkg.devDependencies;
-  if (opts.version) {
-    pkg.version = opts.version;
+  if (name) {
+    pkg.name = name;
   }
-  if (opts.name) {
-    pkg.name = opts.name;
+  if (version) {
+    pkg.version = version;
   }
   if (pkg.main) {
     pkg.main = rebasePaths(pkg.main, opts.outDir);
@@ -29,11 +45,7 @@ function derivePkg(baseDir, opts) {
   if (pkg.browser) {
     pkg.browser = rebasePaths(pkg.browser, opts.outDir);
   }
-
-  var destPkgPath = path.resolve(opts.outDir, 'package.json');
-  writePkg(pkg, destPkgPath);
-
-  copyPackageMeta(baseDir, opts.outDir);
+  return pkg;
 }
 
 function writePkg(pkg, dest) {
