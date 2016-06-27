@@ -36,11 +36,11 @@ function copyPackageJson(baseDir, destDir, name, version, callback) {
     } catch (e) {
       return callback('Error parsing package.json');
     }
-    writePkg(transformPackageJson(pkg, name, version), destPath, callback);
+    writePkg(transformPackageJson(pkg, destDir, name, version), destPath, callback);
   });
 }
 
-function transformPackageJson(pkg, name, version) {
+function transformPackageJson(pkg, outDir, name, version) {
   delete pkg.devDependencies;
   if (name) {
     pkg.name = name;
@@ -49,13 +49,13 @@ function transformPackageJson(pkg, name, version) {
     pkg.version = version;
   }
   if (pkg.main) {
-    pkg.main = rebasePaths(pkg.main, opts.outDir);
+    pkg.main = rebasePaths(pkg.main, outDir);
   }
   if (pkg.bin) {
-    pkg.bin = rebasePaths(pkg.bin, opts.outDir);
+    pkg.bin = rebasePaths(pkg.bin, outDir);
   }
   if (pkg.browser) {
-    pkg.browser = rebasePaths(pkg.browser, opts.outDir);
+    pkg.browser = rebasePaths(pkg.browser, outDir);
   }
   return pkg;
 }
