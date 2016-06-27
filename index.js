@@ -79,8 +79,8 @@ function copyPackageMeta(baseDir, destDir) {
 }
 
 /*
- * Returns whether file cannot be ignored by npm, and hence
- * should be published to npm. Adapted from:
+ * Returns true if a given file cannot be npmignored and hence should be
+ * copied from the base directory and published to npm. Adapted from:
  * https://github.com/npm/npm/blob/master/lib/utils/tar.js
  */
 function isPackageMeta(file) {

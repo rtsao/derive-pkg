@@ -28,7 +28,7 @@ npm publish lib
 Usage: derive-pkg [directory] [options]
 
 Options:
-      directory   The base directory containing the package.json (defualt: ".")
+      directory   The base directory containing the package.json (default: ".")
 
   --out-dir, -d   The output directory for the derived package.json
 
