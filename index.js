@@ -1,7 +1,6 @@
 var fs = require('fs');
 var path = require('path');
 var parallel = require('run-parallel');
-var series = require('run-series');
 
 module.exports = derivePkg;
 
