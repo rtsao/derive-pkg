@@ -9,13 +9,16 @@
   "bugs": "https://github.com/rtsao/derive-pkg/issues",
   "bin": "bin/cli.js",
   "scripts": {
-    "test": "node test/index.js"
+    "test": "node test/index.js",
+    "cover": "istanbul cover test/index.js"
   },
   "dependencies": {
     "minimist": "^1.2.0",
     "run-parallel": "^1.1.6"
   },
   "devDependencies": {
+    "coveralls": "^2.11.9",
+    "istanbul": "^0.4.4",
     "mock-fs": "^3.9.0",
     "tape": "^4.5.1"
   },
