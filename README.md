@@ -1,5 +1,10 @@
 # derive-pkg
 
+[![build status][build-badge]][build-href]
+[![coverage status][coverage-badge]][coverage-href]
+[![dependencies status][deps-badge]][deps-href]
+[![npm version][npm-badge]][npm-href]
+
 A helper utility for publishing transpiled code to npm
 
 #### What is this for?
@@ -36,3 +41,12 @@ Options:
 
   --version, -v   Override the version field of the derived package.json
 ```
+
+[npm-badge]: https://badge.fury.io/js/derive-pkg.svg
+[npm-href]: https://www.npmjs.com/package/derive-pkg
+[build-badge]: https://travis-ci.org/rtsao/derive-pkg.svg?branch=master
+[build-href]: https://travis-ci.org/rtsao/derive-pkg
+[coverage-badge]: https://coveralls.io/repos/rtsao/derive-pkg/badge.svg?branch=master&service=github
+[coverage-href]: https://coveralls.io/github/rtsao/derive-pkg?branch=master
+[deps-badge]: https://david-dm.org/rtsao/derive-pkg.svg
+[deps-href]: https://david-dm.org/rtsao/csjs
