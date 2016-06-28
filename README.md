@@ -13,7 +13,7 @@ A helper utility for publishing transpiled code to npm
 
 The standard convention when publishing code transpiled with [Babel](https://github.com/babel/babel) is to place source code into `src/` and transpiled code into `lib/`. Unfortunately, this makes consuming individual submodules inconvenient because they don't exist at the root of the package, e.g. one must `require('the-module/lib/some-submodule.js')`.
 
-This utlity derives npm package metadata from your root directory and copies it to your build directory so you can publish it instead. Now `lib/` is the root of your package!
+This utility derives npm package metadata from your root directory and copies it to your build directory so you can publish it instead. Now `lib/` is the root of your package!
 
 `derive-pkg` does the following:
 
