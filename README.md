@@ -65,4 +65,4 @@ Yep, but `derive-pkg` is cross-platform and has unit tests.
 [coverage-badge]: https://coveralls.io/repos/rtsao/derive-pkg/badge.svg?branch=master&service=github
 [coverage-href]: https://coveralls.io/github/rtsao/derive-pkg?branch=master
 [deps-badge]: https://david-dm.org/rtsao/derive-pkg.svg
-[deps-href]: https://david-dm.org/rtsao/csjs
+[deps-href]: https://david-dm.org/rtsao/derive-pkg
