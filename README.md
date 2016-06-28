@@ -52,6 +52,12 @@ Options:
   --version, -v   Override the version field of the derived package.json
 ```
 
+## FAQ
+
+**Couldn't this just be a shell script?**
+
+Yep, but `derive-pkg` is cross-platform and has unit tests.
+
 [npm-badge]: https://badge.fury.io/js/derive-pkg.svg
 [npm-href]: https://www.npmjs.com/package/derive-pkg
 [build-badge]: https://travis-ci.org/rtsao/derive-pkg.svg?branch=master
