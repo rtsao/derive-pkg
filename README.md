@@ -11,14 +11,13 @@ A helper utility for publishing transpiled code to npm
 
 The standard convention when publishing code transpiled with [Babel](https://github.com/babel/babel) is to place source code into `src/` and transpiled code into `lib/`. Unfortunately, this makes consuming individual submodules inconvenient because they don't exist at the root of the package, e.g. `require('my-module/lib/a-submodule.js')`.
 
-This utlity derives npm package metadata from your root directory and copies it your build directory so you can publish it.
+This utlity derives npm package metadata from your root directory and copies it to your build directory so you can publish it.
 
-- Copies `package.json` from root with the following changes:
-  - Rebases `main`, `bin`, and `browser` field entry paths from `lib/` to `/`
-  - Removes `devDependencies`
-- Copies relevant metadata files
-  - Copies files that npm will never ignore (e.g. readme, license, and changelog)
-  - Copies `.gitignore`/`.npmignore` as `.npmignore`
+- Copies `package.json` from root with the changes below
+  - Rebase `main`, `bin`, and `browser` field entry paths from `lib/` to `/`
+  - Omit `devDependencies`
+- Copies files from root that npm will never ignore and should be included when publishing (e.g. readme, license, and changelog)
+- Copies `.gitignore`/`.npmignore` from root as `.npmignore`
 
 ## Install
 
