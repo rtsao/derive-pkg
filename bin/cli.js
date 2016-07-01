@@ -16,7 +16,7 @@ if (argv._.length > 1) {
   });
 }
 else {
-  derivePkg(opts._[0], opts);
+  derivePkg(argv._[0], argv);
 }
 
 function showUsage() {
