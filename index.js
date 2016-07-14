@@ -76,26 +76,25 @@ function rebasePaths(entry, outDir) {
   }
 }
 
-function copyPackageMeta(baseDir, destDir, callback) {
+function copyPackageMeta(baseDir, destDir, cb) {
   var callbacks = [];
   fs.readdir(baseDir, function(err, files) {
     files.forEach(function(file) {
       var absPath = path.join(baseDir, file);
       var done;
-      callbacks.push(function(cb) {
-        done = cb;
-      });
-      fs.stat(absPath, function(err, stats) {
-        if (stats.isFile() && isPackageMeta(file)) {
-          var out = fs.createWriteStream(path.join(destDir, file));
-            out.on('finish', done);
-          fs.createReadStream(absPath).pipe(out);
-        } else {
-          done();
-        }
+      callbacks.push(function(done) {
+        fs.stat(absPath, function(err, stats) {
+          if (stats.isFile() && isPackageMeta(file)) {
+            var out = fs.createWriteStream(path.join(destDir, file));
+              out.on('finish', done);
+            fs.createReadStream(absPath).pipe(out);
+          } else {
+            done();
+          }
+        });
       });
     });
-    parallel(callbacks, callback);
+    parallel(callbacks, cb);
   });
 }
 
