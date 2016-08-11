@@ -1,6 +1,6 @@
 {
   "name": "derive-pkg",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "A helper utility for publishing transpiled code to npm",
   "author": "Ryan Tsao <ryan.j.tsao@gmail.com>",
   "main": "index.js",
