@@ -5,10 +5,12 @@ var parallel = require('run-parallel');
 module.exports = derivePkg;
 
 function derivePkg(baseDir, opts, callback) {
-  if (typeof baseDir === 'object') {
+  if (typeof baseDir === 'undefined') {
+    baseDir = '.';
+  } else if (typeof baseDir === 'object') {
+    baseDir = '.';
     callback = opts;
     opts = baseDir;
-    baseDir = '.';
   }
   if (!opts.outDir) {
     throw Error('Error: No output directory specified.');
@@ -81,7 +83,6 @@ function copyPackageMeta(baseDir, destDir, cb) {
   fs.readdir(baseDir, function(err, files) {
     files.forEach(function(file) {
       var absPath = path.join(baseDir, file);
-      var done;
       callbacks.push(function(done) {
         fs.stat(absPath, function(err, stats) {
           if (stats.isFile() && isPackageMeta(file)) {
