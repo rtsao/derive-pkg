@@ -44,6 +44,7 @@ function copyPackageJson(baseDir, destDir, name, version, callback) {
 
 function transformPackageJson(pkg, outDir, name, version) {
   delete pkg.devDependencies;
+  delete pkg.scripts;
   if (name) {
     pkg.name = name;
   }
