@@ -8,9 +8,9 @@ function derivePkg(baseDir, opts, callback) {
   if (typeof baseDir === 'undefined') {
     baseDir = '.';
   } else if (typeof baseDir === 'object') {
-    baseDir = '.';
     callback = opts;
     opts = baseDir;
+    baseDir = '.';
   }
   if (!opts.outDir) {
     throw Error('Error: No output directory specified.');
