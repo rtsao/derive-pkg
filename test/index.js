@@ -69,6 +69,38 @@ test('test file rebasing', function (t) {
       'paths rebased'
     );
     mock.restore();
+    t.end();
   });
-  t.end();
+});
+
+test('test predefined fields are stripped', function (t) {
+  var pkg = JSON.stringify({
+    main: 'lib/index.js',
+    devDependencies: {
+      devDep: '1.0.0',
+      otherDevDep: '2.0.0-beta0'
+    },
+    scripts: {
+      test: 'echo test'
+    },
+    private: true
+  }, null, 2);
+
+  var expected = JSON.stringify({
+    main: 'index.js'
+  }, null, 2);
+
+  mock({
+    'package.json': pkg,
+    'lib': {}
+  });
+  api({outDir: 'lib'}, function() {
+    t.equal(
+      fs.readFileSync('lib/package.json', 'utf8'),
+      expected,
+      'devDependencies, scripts, and private fields are stripped'
+    );
+    mock.restore();
+    t.end();
+  });
 });

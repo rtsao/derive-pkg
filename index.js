@@ -45,6 +45,9 @@ function copyPackageJson(baseDir, destDir, name, version, callback) {
 function transformPackageJson(pkg, outDir, name, version) {
   delete pkg.devDependencies;
   delete pkg.scripts;
+  // Derived packages are intended for publishing; we can safely strip
+  // their "private" key
+  delete pkg.private;
   if (name) {
     pkg.name = name;
   }
