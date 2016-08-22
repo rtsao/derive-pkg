@@ -11,7 +11,7 @@
     "clean": "lerna clean",
     "bootstrap": "lerna bootstrap",
     "test": "lerna run test",
-    "cover": "nyc npm test"
+    "cover": "nyc --reporter=lcov npm test"
   },
   "devDependencies": {
     "coveralls": "^2.11.9",
