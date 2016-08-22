@@ -10,8 +10,7 @@
     "derive-pkg": "cli.js"
   },
   "scripts": {
-    "test": "node test/index.js",
-    "cover": "istanbul cover test/index.js"
+    "test": "node test/index.js"
   },
   "dependencies": {
     "derive-pkg": "^1.0.0"

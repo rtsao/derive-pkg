@@ -8,8 +8,7 @@
   "repository": "git@github.com:rtsao/derive-pkg.git",
   "bugs": "https://github.com/rtsao/derive-pkg/issues",
   "scripts": {
-    "test": "node test/index.js",
-    "cover": "istanbul cover test/index.js"
+    "test": "node test/index.js"
   },
   "dependencies": {
     "derive-pkg-core": "^1.0.0"

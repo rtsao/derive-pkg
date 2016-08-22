@@ -8,8 +8,7 @@
   "bugs": "https://github.com/rtsao/derive-pkg/issues",
   "main": "index.js",
   "scripts": {
-    "test": "node test/index.js",
-    "cover": "istanbul cover test/index.js"
+    "test": "node test/index.js"
   },
   "dependencies": {
     "run-parallel": "^1.1.6"
