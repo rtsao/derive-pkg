@@ -4,7 +4,7 @@ var test = require('tape');
 var mock = require('mock-fs');
 var fs = require('fs');
 
-var api = require('../');
+var derivePkg = require('../');
 
 test('test basic functionality', function (t) {
   mock({
@@ -15,7 +15,7 @@ test('test basic functionality', function (t) {
     'CHANGELOG': 'a changelog',
     'lib': {}
   });
-  api({outDir: 'lib'}, function() {
+  derivePkg({outDir: 'lib'}, function() {
     t.equal(
       fs.readFileSync('lib/package.json', 'utf8'),
       '{}',
@@ -62,7 +62,7 @@ test('test file rebasing', function (t) {
     'package.json': pkg,
     'lib': {}
   });
-  api({outDir: 'lib'}, function() {
+  derivePkg({outDir: 'lib'}, function() {
     t.equal(
       fs.readFileSync('lib/package.json', 'utf8'),
       expected,
@@ -94,7 +94,7 @@ test('test predefined fields are stripped', function (t) {
     'package.json': pkg,
     'lib': {}
   });
-  api({outDir: 'lib'}, function() {
+  derivePkg({outDir: 'lib'}, function() {
     t.equal(
       fs.readFileSync('lib/package.json', 'utf8'),
       expected,

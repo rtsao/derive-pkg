@@ -1,24 +1,18 @@
 {
-  "name": "derive-pkg-monorepo",
-  "private": true,
+  "name": "derive-pkg-core",
   "version": "1.0.0",
   "description": "A helper utility for publishing transpiled code to npm",
   "author": "Ryan Tsao <ryan.j.tsao@gmail.com>",
   "homepage": "https://github.com/rtsao/derive-pkg",
   "repository": "git@github.com:rtsao/derive-pkg.git",
   "bugs": "https://github.com/rtsao/derive-pkg/issues",
+  "main": "index.js",
   "scripts": {
-    "clean": "lerna clean",
-    "bootstrap": "lerna bootstrap",
-    "test": "lerna run test",
-    "cover": "nyc npm test"
+    "test": "node test/index.js",
+    "cover": "istanbul cover test/index.js"
   },
-  "devDependencies": {
-    "coveralls": "^2.11.9",
-    "lerna": "2.0.0-beta.26",
-    "mock-fs": "^3.9.0",
-    "nyc": "^8.1.0",
-    "tape": "^4.5.1"
+  "dependencies": {
+    "run-parallel": "^1.1.6"
   },
   "license": "MIT"
 }

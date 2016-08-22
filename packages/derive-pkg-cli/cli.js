@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var derivePkg = require('../index.js');
+var derivePkg = require('derive-pkg');
 
 var argv = require('minimist')(process.argv.slice(2), {
   alias: {
