@@ -21,6 +21,12 @@ function derivePkg(baseDir, opts, callback) {
     // Derived packages are intended for publishing; we can safely strip
     // their "private" key
     delete pkg.private;
+    if (opts.name) {
+      pkg.name = opts.name;
+    }
+    if (opts.version) {
+      pkg.version = opts.version;
+    }
     if (pkg.main) {
       pkg.main = rebasePaths(pkg.main, opts.outDir);
     }
