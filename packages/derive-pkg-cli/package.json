@@ -1,6 +1,6 @@
 {
   "name": "derive-pkg-cli",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0",
   "description": "A helper utility for publishing transpiled code to npm",
   "author": "Ryan Tsao <ryan.j.tsao@gmail.com>",
   "homepage": "https://github.com/rtsao/derive-pkg",
@@ -13,7 +13,7 @@
     "test": "node test/index.js"
   },
   "dependencies": {
-    "derive-pkg": "^1.0.0-beta.1"
+    "derive-pkg": "^1.0.0"
   },
   "license": "MIT"
 }
