@@ -1,6 +1,6 @@
 {
   "name": "derive-pkg",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.0",
   "description": "A helper utility for publishing transpiled code to npm",
   "author": "Ryan Tsao <ryan.j.tsao@gmail.com>",
   "main": "index.js",
@@ -11,7 +11,7 @@
     "test": "node test/index.js"
   },
   "dependencies": {
-    "derive-pkg-core": "^1.0.0"
+    "derive-pkg-core": "^1.0.0-beta.0"
   },
   "license": "MIT"
 }
