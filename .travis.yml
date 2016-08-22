@@ -1,10 +1,8 @@
 language: node_js
 node_js:
-  - "0.10"
   - "0.12"
-  - "4"
-  - "5"
-  - "6"
+  - 4
+  - 6
 script:
   - npm run bootstrap
   - npm run cover && ((cat coverage/lcov.info | coveralls) || exit 0)
