@@ -5,4 +5,6 @@ node_js:
   - "4"
   - "5"
   - "6"
-script: npm run cover && ((cat coverage/lcov.info | coveralls) || exit 0)
+script:
+  - npm run bootstrap
+  - npm run cover && ((cat coverage/lcov.info | coveralls) || exit 0)
