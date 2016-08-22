@@ -26,7 +26,7 @@ This utility derives npm package metadata from your root directory and copies it
 ## Install
 
 ```
-npm install derive-pkg --save-dev
+npm install derive-pkg-cli --save-dev
 ```
 
 ## Quick Example
